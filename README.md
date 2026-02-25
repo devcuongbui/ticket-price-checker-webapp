@@ -12,7 +12,7 @@
 
 Webapp **Săn vé rẻ** là một ứng dụng tra cứu giá vé phim dạng wizard (step-by-step), giúp người dùng:
 
-1. **Chọn phim** đang chiếu tại Hải Phòng
+1. **Chọn phim** đang chiếu 
 2. **Chọn ngày** muốn xem
 3. **So sánh giá vé** từ 3 sàn (MoMo / ZaloPay / VNPay) trên tất cả các rạp
 4. **Kiểm tra ghế trống** với sơ đồ ghế trực quan trước khi quyết định đặt vé
