@@ -1,0 +1,67 @@
+.step-dates {
+  animation: fadeSlideUp 0.3s ease;
+}
+
+.date-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.date-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.date-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 68px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: inherit;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.date-chip:hover,
+.date-chip:focus-visible {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.date-chip:active {
+  transform: scale(0.95);
+}
+
+.date-today {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(168, 85, 247, 0.1));
+}
+
+.date-dow {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-today .date-dow {
+  color: var(--accent);
+}
+
+.date-display {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}

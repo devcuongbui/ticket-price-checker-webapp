@@ -1,0 +1,395 @@
+.step-seatmap {
+  animation: fadeSlideUp 0.3s ease;
+}
+
+/* ========= Summary Header ========= */
+.sm-summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.sm-summary-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sm-movie-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.sm-tags {
+  display: flex;
+  gap: 6px;
+}
+
+.sm-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(83, 216, 251, 0.12);
+  color: #53d8fb;
+}
+
+.sm-details {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.sm-detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.sm-detail-icon {
+  font-size: 13px;
+}
+
+/* ========= Price Mini Row ========= */
+.sm-price-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.sm-price-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.sm-price-chip--best {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.06);
+}
+
+.sm-price-chip--na {
+  opacity: 0.4;
+}
+
+.sm-price-name {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.sm-price-val {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.sm-price-chip--best .sm-price-val {
+  color: var(--accent);
+}
+
+.sm-best-badge {
+  position: absolute;
+  top: -7px;
+  right: -4px;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ========= Availability Bar ========= */
+.sm-avail-section {
+  margin-bottom: 16px;
+}
+
+.sm-avail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.sm-avail-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sm-avail-pct {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sm-avail-pct.avail-good { color: #22c55e; }
+.sm-avail-pct.avail-medium { color: #eab308; }
+.sm-avail-pct.avail-low { color: #ef4444; }
+
+.sm-avail-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--surface);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sm-avail-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.sm-avail-fill.avail-good { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.sm-avail-fill.avail-medium { background: linear-gradient(90deg, #eab308, #facc15); }
+.sm-avail-fill.avail-low { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+/* ========= Screen ========= */
+.sm-screen-container {
+  text-align: center;
+  margin-bottom: 18px;
+  padding: 0 8px;
+}
+
+.sm-screen {
+  height: 4px;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 280px;
+  background: linear-gradient(90deg, transparent, #53d8fb, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(83, 216, 251, 0.3), 0 0 40px rgba(83, 216, 251, 0.1);
+}
+
+.sm-screen-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+/* ========= Seat Map ========= */
+.sm-map-scroll {
+  overflow-x: auto;
+  padding: 0 4px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.sm-map {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: fit-content;
+  margin: 0 auto;
+}
+
+.sm-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sm-row-label {
+  width: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sm-seats {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+  justify-content: center;
+}
+
+.sm-seat-wrapper {
+  display: flex;
+}
+
+/* ========= Individual Seats ========= */
+.sm-seat {
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  position: relative;
+  cursor: default;
+}
+
+.sm-seat--double {
+  width: 55px;
+  border-radius: 6px;
+}
+
+/* Seat types - available */
+.sm-seat--regular.sm-seat--available {
+  background: rgba(147, 197, 253, 0.25);
+  border: 1.5px solid rgba(147, 197, 253, 0.5);
+}
+
+.sm-seat--vip.sm-seat--available {
+  background: rgba(192, 132, 252, 0.25);
+  border: 1.5px solid rgba(192, 132, 252, 0.5);
+}
+
+.sm-seat--couple.sm-seat--available {
+  background: rgba(251, 146, 60, 0.25);
+  border: 1.5px solid rgba(251, 146, 60, 0.5);
+}
+
+/* Booked */
+.sm-seat--booked {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.sm-seat-x {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ========= Legend ========= */
+.sm-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.sm-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.sm-legend-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.sm-legend--regular {
+  background: rgba(147, 197, 253, 0.25);
+  border: 1.5px solid rgba(147, 197, 253, 0.5);
+}
+
+.sm-legend--vip {
+  background: rgba(192, 132, 252, 0.25);
+  border: 1.5px solid rgba(192, 132, 252, 0.5);
+}
+
+.sm-legend--couple {
+  background: rgba(251, 146, 60, 0.25);
+  border: 1.5px solid rgba(251, 146, 60, 0.5);
+}
+
+.sm-legend--booked {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.sm-legend--available {
+  background: rgba(147, 197, 253, 0.25);
+  border: 1.5px solid rgba(83, 216, 251, 0.6);
+  box-shadow: 0 0 4px rgba(83, 216, 251, 0.3);
+}
+
+/* ========= Action Buttons ========= */
+.sm-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.sm-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.sm-btn--secondary {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text-primary);
+}
+
+.sm-btn--secondary:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+}
+
+.sm-btn--primary {
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+}
+
+.sm-btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(233, 69, 96, 0.4);
+}
+
+.sm-btn:active {
+  transform: scale(0.97);
+}
+
+/* ========= Skeleton ========= */
+.seatmap-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 20px;
+}
+
+.skeleton-row {
+  height: 26px;
+  background: var(--surface);
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+}

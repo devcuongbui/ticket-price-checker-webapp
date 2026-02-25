@@ -1,0 +1,270 @@
+.step-showtimes-v2 {
+  animation: fadeSlideUp 0.3s ease;
+}
+
+/* ========= Filters ========= */
+.st-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.filter-row {
+  overflow: hidden;
+}
+
+.filter-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0;
+  scrollbar-width: none;
+}
+
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filter-chip--sm {
+  padding: 6px 12px;
+  font-size: 11px;
+}
+
+.filter-chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-chip:not(.active):hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.filter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ========= Legend ========= */
+.st-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legend-dot--best {
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  box-shadow: 0 0 6px rgba(233, 69, 96, 0.4);
+}
+
+.legend-platforms {
+  display: flex;
+  gap: 10px;
+}
+
+.legend-platform {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ========= Cinema Groups ========= */
+.cinema-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cinema-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.cinema-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+.cinema-group-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ========= Showtime Cards ========= */
+.showtime-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.showtime-card {
+  position: relative;
+  width: 100%;
+  padding: 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+}
+
+.showtime-card:hover,
+.showtime-card:focus-visible {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(233, 69, 96, 0.12);
+}
+
+.showtime-card:active {
+  transform: scale(0.98);
+}
+
+.showtime-card--best {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(233, 69, 96, 0.06), rgba(168, 85, 247, 0.06));
+  box-shadow: 0 2px 12px rgba(233, 69, 96, 0.1);
+}
+
+.best-tag {
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  padding: 3px 10px;
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 12px;
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 6px rgba(233, 69, 96, 0.3);
+}
+
+.st-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.st-time {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.st-format {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(83, 216, 251, 0.15);
+  color: #53d8fb;
+}
+
+.st-seat {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(168, 85, 247, 0.12);
+  color: #c084fc;
+}
+
+/* ========= Prices Row ========= */
+.st-prices {
+  display: flex;
+  gap: 6px;
+}
+
+.st-price {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.st-price--best {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.08);
+}
+
+.st-price--na {
+  opacity: 0.4;
+}
+
+.st-price-platform {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.st-price-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.st-price--best .st-price-value {
+  color: var(--accent);
+}
+
+.st-price--na .st-price-value {
+  font-size: 11px;
+  color: var(--text-muted);
+}

@@ -1,0 +1,71 @@
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.skeleton-img {
+  width: 60px;
+  height: 85px;
+  border-radius: 8px;
+  background: var(--skeleton-base);
+  flex-shrink: 0;
+}
+
+.skeleton-text-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+}
+
+.skeleton-text {
+  height: 14px;
+  border-radius: 4px;
+  background: var(--skeleton-base);
+}
+
+.skeleton-chip {
+  width: 70px;
+  height: 50px;
+  border-radius: 12px;
+  background: var(--skeleton-base);
+}
+
+.skeleton-button {
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--skeleton-base);
+}
+
+.skeleton-list:has(.skeleton-chip),
+.skeleton-list:has(.skeleton-button) {
+  flex-direction: row;
+  overflow-x: hidden;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
