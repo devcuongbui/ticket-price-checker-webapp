@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { adminGetUsers, adminUpdateUserRole } from "../api/client";
+import { adminGetUsers, adminUpdateUserRole, adminCreateUser, adminUpdateUser, adminDeleteUser } from "../api/client";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -8,26 +8,30 @@ export default function Admin() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingUser, setEditingUser] = useState(null);
+    const [formData, setFormData] = useState({ email: "", password: "", role: "user" });
+    const [submitting, setSubmitting] = useState(false);
+
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+
+    const fetchUsers = async () => {
+        try {
+            const data = await adminGetUsers();
+            setUsers(data);
+        } catch (err) {
+            setError("Lỗi khi tải danh sách người dùng. " + err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (!user || user.role !== "admin") {
             navigate("/login");
             return;
         }
-
-        const fetchUsers = async () => {
-            try {
-                const data = await adminGetUsers();
-                setUsers(data);
-            } catch (err) {
-                setError("Lỗi khi tải danh sách người dùng. " + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchUsers();
     }, [user, navigate]);
 
@@ -37,6 +41,47 @@ export default function Admin() {
             setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
         } catch (err) {
             setError("Lỗi khi cập nhật vai trò: " + err.message);
+        }
+    };
+
+    const handleDelete = async (userId) => {
+        if (!window.confirm("Bạn có chắc chắn muốn xóa người dùng này?")) return;
+        try {
+            await adminDeleteUser(userId);
+            setUsers(users.filter(u => u.id !== userId));
+        } catch (err) {
+            setError("Lỗi khi xóa người dùng: " + err.message);
+        }
+    };
+
+    const openCreateModal = () => {
+        setEditingUser(null);
+        setFormData({ email: "", password: "", role: "user" });
+        setIsModalOpen(true);
+    };
+
+    const openEditModal = (u) => {
+        setEditingUser(u);
+        setFormData({ email: u.email, password: "", role: u.role });
+        setIsModalOpen(true);
+    };
+
+    const handleModalSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        setError("");
+        try {
+            if (editingUser) {
+                await adminUpdateUser(editingUser.id, formData);
+            } else {
+                await adminCreateUser(formData);
+            }
+            await fetchUsers();
+            setIsModalOpen(false);
+        } catch (err) {
+            setError("Lỗi lưu người dùng: " + err.message);
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -61,7 +106,10 @@ export default function Admin() {
             {error && <div className="admin-error">{error}</div>}
 
             <div className="admin-card">
-                <h3>Danh sách người dùng</h3>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                    <h3>Danh sách người dùng</h3>
+                    <button className="auth-btn" style={{ margin: 0, padding: "8px 16px" }} onClick={openCreateModal}>+ Thêm tải khoản</button>
+                </div>
                 <div className="table-responsive">
                     <table className="admin-table">
                         <thead>
@@ -99,6 +147,14 @@ export default function Admin() {
                                             )}
                                         </div>
                                     </td>
+                                    <td>
+                                        {u.id !== user.id && (
+                                            <div style={{ display: "flex", gap: "8px" }}>
+                                                <button onClick={() => openEditModal(u)} className="admin-action-btn edit">Sửa</button>
+                                                <button onClick={() => handleDelete(u.id)} className="admin-action-btn delete">Xóa</button>
+                                            </div>
+                                        )}
+                                    </td>
                                 </tr>
                             ))}
                             {users.length === 0 && (
@@ -110,6 +166,56 @@ export default function Admin() {
                     </table>
                 </div>
             </div>
+
+            {isModalOpen && (
+                <div className="admin-modal-overlay" onClick={() => setIsModalOpen(false)}>
+                    <div className="admin-modal" onClick={e => e.stopPropagation()}>
+                        <h3>{editingUser ? "Sửa tài khoản" : "Tạo tài khoản mới"}</h3>
+                        <form onSubmit={handleModalSubmit} className="auth-form" style={{ marginTop: "16px" }}>
+                            <div className="auth-field">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    required
+                                    value={formData.email}
+                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                                />
+                            </div>
+                            <div className="auth-field">
+                                <label>Mật khẩu {editingUser && "(Để trống nếu không muốn đổi)"}</label>
+                                <input
+                                    type="password"
+                                    required={!editingUser}
+                                    value={formData.password}
+                                    onChange={e => setFormData({ ...formData, password: e.target.value })}
+                                />
+                            </div>
+                            <div className="auth-field">
+                                <label>Vai trò</label>
+                                <select
+                                    value={formData.role}
+                                    onChange={e => setFormData({ ...formData, role: e.target.value })}
+                                    style={{
+                                        padding: "12px 16px",
+                                        borderRadius: "10px",
+                                        background: "rgba(255, 255, 255, 0.05)",
+                                        border: "1.5px solid var(--border)",
+                                        color: "var(--text-primary)",
+                                        outline: "none"
+                                    }}
+                                >
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="auth-btn" style={{ flex: 1, background: "var(--surface)", border: "1px solid var(--border)" }}>Hủy</button>
+                                <button type="submit" disabled={submitting} className="auth-btn" style={{ flex: 1 }}>{submitting ? "Đang xử lý..." : "Lưu"}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

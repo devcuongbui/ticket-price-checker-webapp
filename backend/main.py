@@ -49,6 +49,16 @@ class TokenRefresh(BaseModel):
 class UserRoleUpdate(BaseModel):
     role: str
 
+class AdminUserCreate(BaseModel):
+    email: str
+    password: str
+    role: str
+
+class AdminUserUpdate(BaseModel):
+    email: str
+    password: str | None = None
+    role: str
+
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials
     payload = decode_token(token)
@@ -132,6 +142,51 @@ async def update_user_role(user_id: str, payload: UserRoleUpdate, admin_user: di
         raise HTTPException(status_code=404, detail="User not found")
         
     return {"message": "User role updated successfully"}
+
+@app.post("/api/admin/users")
+async def create_user(payload: AdminUserCreate, admin_user: dict = Depends(get_admin_user)):
+    existing_user = await users_collection.find_one({"email": payload.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already exists")
+    if payload.role not in ["user", "admin"]:
+        raise HTTPException(status_code=400, detail="Invalid role")
+        
+    user_id = "u-" + str(uuid.uuid4())[:8]
+    new_user = {
+        "id": user_id,
+        "email": payload.email,
+        "password": get_password_hash(payload.password),
+        "role": payload.role
+    }
+    await users_collection.insert_one(new_user)
+    return {"message": "User created successfully", "id": user_id}
+
+@app.put("/api/admin/users/{user_id}")
+async def update_user(user_id: str, payload: AdminUserUpdate, admin_user: dict = Depends(get_admin_user)):
+    if payload.role not in ["user", "admin"]:
+        raise HTTPException(status_code=400, detail="Invalid role")
+        
+    update_data = {"email": payload.email, "role": payload.role}
+    if payload.password:
+        update_data["password"] = get_password_hash(payload.password)
+        
+    result = await users_collection.update_one(
+        {"id": user_id},
+        {"$set": update_data}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User updated successfully"}
+
+@app.delete("/api/admin/users/{user_id}")
+async def delete_user(user_id: str, admin_user: dict = Depends(get_admin_user)):
+    if user_id == admin_user["id"]:
+        raise HTTPException(status_code=400, detail="Cannot delete yourself")
+        
+    result = await users_collection.delete_one({"id": user_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User deleted successfully"}
 
 @app.get("/")
 def root():

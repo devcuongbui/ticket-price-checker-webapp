@@ -118,6 +118,28 @@ export async function adminUpdateUserRole(userId, role) {
   });
 }
 
+export async function adminCreateUser(user) {
+  return fetchWithAuth("/api/admin/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  });
+}
+
+export async function adminUpdateUser(userId, user) {
+  return fetchWithAuth(`/api/admin/users/${encodeURIComponent(userId)}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  });
+}
+
+export async function adminDeleteUser(userId) {
+  return fetchWithAuth(`/api/admin/users/${encodeURIComponent(userId)}`, {
+    method: "DELETE"
+  });
+}
+
 // Existing routes
 export async function getMovies() {
   return fetchWithAuth("/api/movies");
