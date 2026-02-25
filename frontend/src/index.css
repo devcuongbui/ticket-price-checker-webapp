@@ -1,8 +1,7 @@
 :root {
-  /* Dynamic font-size for rem scaling based on 375px baseline */
-  /* 16px / 375px = 4.266667vw */
-  font-size: 4.26667vw;
-  
+  /* Fluid font-size: scales with viewport, min 14px, max 18px */
+  font-size: clamp(14px, 4.26667vw, 18px);
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -17,12 +16,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (min-width: 420px) {
-  :root {
-    /* Cap the root font-size at 420px screen width (420 * 4.26667% = ~17.92px) */
-    font-size: 17.92px;
-  }
-}
 
 a {
   font-weight: 500;
