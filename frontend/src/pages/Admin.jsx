@@ -135,6 +135,7 @@ export default function Admin() {
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Vai trò</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -176,7 +177,7 @@ export default function Admin() {
                                 ))}
                                 {users.length === 0 && (
                                     <tr>
-                                        <td colSpan="3" style={{ textAlign: "center" }}>Không có người dùng nào.</td>
+                                        <td colSpan="4" style={{ textAlign: "center" }}>Không có người dùng nào.</td>
                                     </tr>
                                 )}
                             </tbody>
@@ -218,7 +219,6 @@ export default function Admin() {
                                     style={{
                                         padding: "12px 16px",
                                         borderRadius: "10px",
-                                        background: "rgba(255, 255, 255, 0.05)",
                                         border: "1.5px solid var(--border)",
                                         color: "var(--text-primary)",
                                         outline: "none"
