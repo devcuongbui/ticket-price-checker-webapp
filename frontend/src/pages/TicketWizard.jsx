@@ -68,7 +68,7 @@ export default function TicketWizard() {
                 <div className="header-content">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <span className="header-icon">🎬</span>
-                        <h1 className="header-title">Check Giá Vé</h1>
+                        <h1 className="header-title">Săn vé rẻ</h1>
                     </div>
                     <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                         {user?.role === "admin" && (

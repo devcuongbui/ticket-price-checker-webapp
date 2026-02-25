@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ── MongoDB Atlas ─────────────────────────────────────────────────────────────
-_USER = os.getenv("MONGO_USER", "devcuongbui")
-_PASS = os.getenv("MONGO_PASS", "7ygUW5tfLvFw3cEF")
-_HOST = os.getenv("MONGO_HOST", "cluster0.gbovon9.mongodb.net")
+_USER = os.getenv("MONGO_USER", "YOUR_MONGO_USER")
+_PASS = os.getenv("MONGO_PASS", "YOUR_MONGO_PASS")
+_HOST = os.getenv("MONGO_HOST", "YOUR_MONGO_HOST")
 
 # Full URI can also be set directly via MONGO_URI env var
 MONGO_URI = os.getenv(
