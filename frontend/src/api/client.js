@@ -110,6 +110,14 @@ export async function adminGetUsers() {
   return fetchWithAuth("/api/admin/users");
 }
 
+export async function adminUpdateUserRole(userId, role) {
+  return fetchWithAuth(`/api/admin/users/${encodeURIComponent(userId)}/role`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ role })
+  });
+}
+
 // Existing routes
 export async function getMovies() {
   return fetchWithAuth("/api/movies");

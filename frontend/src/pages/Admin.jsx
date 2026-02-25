@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { adminGetUsers } from "../api/client";
+import { adminGetUsers, adminUpdateUserRole } from "../api/client";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +30,15 @@ export default function Admin() {
 
         fetchUsers();
     }, [user, navigate]);
+
+    const handleRoleChange = async (userId, newRole) => {
+        try {
+            await adminUpdateUserRole(userId, newRole);
+            setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+        } catch (err) {
+            setError("Lỗi khi cập nhật vai trò: " + err.message);
+        }
+    };
 
     const handleLogout = () => {
         logout();
@@ -68,7 +77,27 @@ export default function Admin() {
                                     <td>{u.id}</td>
                                     <td>{u.email}</td>
                                     <td>
-                                        <span className={`role-badge role-${u.role}`}>{u.role}</span>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                            <span className={`role-badge role-${u.role}`}>{u.role}</span>
+                                            {u.id !== user.id && ( // Prevent changing own role
+                                                <select
+                                                    value={u.role}
+                                                    onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                                                    style={{
+                                                        background: "rgba(255,255,255,0.05)",
+                                                        border: "1px solid var(--border)",
+                                                        color: "var(--text-primary)",
+                                                        padding: "4px",
+                                                        borderRadius: "4px",
+                                                        fontSize: "12px",
+                                                        outline: "none"
+                                                    }}
+                                                >
+                                                    <option value="user">User</option>
+                                                    <option value="admin">Admin</option>
+                                                </select>
+                                            )}
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
