@@ -4,9 +4,9 @@
 
 .date-scroll {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   overflow-x: auto;
-  padding: 4px 0 8px;
+  padding: 0.25rem 0 0.5rem;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -19,12 +19,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  min-width: 68px;
-  padding: 12px 14px;
+  gap: 0.25rem;
+  min-width: 4.25rem;
+  padding: 0.75rem 0.875rem;
   background: var(--surface);
   border: 1.5px solid var(--border);
-  border-radius: 14px;
+  border-radius: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   color: inherit;
@@ -36,7 +36,7 @@
 .date-chip:focus-visible {
   border-color: var(--accent);
   background: var(--surface-hover);
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
 }
 
 .date-chip:active {
@@ -49,7 +49,7 @@
 }
 
 .date-dow {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -61,7 +61,7 @@
 }
 
 .date-display {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text-primary);
 }

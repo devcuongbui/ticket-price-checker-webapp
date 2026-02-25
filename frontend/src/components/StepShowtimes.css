@@ -6,8 +6,8 @@
 .st-filters {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 14px;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
 }
 
 .filter-row {
@@ -16,9 +16,9 @@
 
 .filter-scroll {
   display: flex;
-  gap: 6px;
+  gap: 0.375rem;
   overflow-x: auto;
-  padding: 2px 0;
+  padding: 0.125rem 0;
   scrollbar-width: none;
 }
 
@@ -29,13 +29,13 @@
 .filter-chip {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 14px;
+  gap: 0.3125rem;
+  padding: 0.5rem 0.875rem;
   background: var(--surface);
   border: 1.5px solid var(--border);
-  border-radius: 20px;
+  border-radius: 1.25rem;
   color: var(--text-secondary);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -45,8 +45,8 @@
 }
 
 .filter-chip--sm {
-  padding: 6px 12px;
-  font-size: 11px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.6875rem;
 }
 
 .filter-chip.active {
@@ -61,8 +61,8 @@
 }
 
 .filter-dot {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -72,37 +72,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
-  margin-bottom: 10px;
+  padding: 0.5rem 0;
+  margin-bottom: 0.625rem;
   border-bottom: 1px solid var(--border);
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
+  gap: 0.375rem;
+  font-size: 0.6875rem;
   color: var(--text-muted);
 }
 
 .legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 0.1875rem;
 }
 
 .legend-dot--best {
   background: linear-gradient(135deg, var(--accent), #a855f7);
-  box-shadow: 0 0 6px rgba(233, 69, 96, 0.4);
+  box-shadow: 0 0 0.375rem rgba(233, 69, 96, 0.4);
 }
 
 .legend-platforms {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .legend-platform {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 600;
 }
 
@@ -110,27 +110,27 @@
 .cinema-groups {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 1.125rem;
 }
 
 .cinema-group-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  gap: 0.625rem;
+  margin-bottom: 0.5rem;
 }
 
 .cinema-badge {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   color: #fff;
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
   letter-spacing: 0.3px;
 }
 
 .cinema-group-name {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -139,16 +139,16 @@
 .showtime-cards {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .showtime-card {
   position: relative;
   width: 100%;
-  padding: 14px;
+  padding: 0.875rem;
   background: var(--surface);
   border: 1.5px solid var(--border);
-  border-radius: 14px;
+  border-radius: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -161,7 +161,7 @@
   border-color: var(--accent);
   background: var(--surface-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(233, 69, 96, 0.12);
+  box-shadow: 0 0.25rem 1rem rgba(233, 69, 96, 0.12);
 }
 
 .showtime-card:active {
@@ -171,51 +171,51 @@
 .showtime-card--best {
   border-color: var(--accent);
   background: linear-gradient(135deg, rgba(233, 69, 96, 0.06), rgba(168, 85, 247, 0.06));
-  box-shadow: 0 2px 12px rgba(233, 69, 96, 0.1);
+  box-shadow: 0 0.125rem 0.75rem rgba(233, 69, 96, 0.1);
 }
 
 .best-tag {
   position: absolute;
-  top: -8px;
-  right: 10px;
-  padding: 3px 10px;
+  top: -0.5rem;
+  right: 0.625rem;
+  padding: 0.1875rem 0.625rem;
   background: linear-gradient(135deg, var(--accent), #a855f7);
   color: #fff;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   letter-spacing: 0.2px;
-  box-shadow: 0 2px 6px rgba(233, 69, 96, 0.3);
+  box-shadow: 0 0.125rem 0.375rem rgba(233, 69, 96, 0.3);
 }
 
 .st-card-top {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 0.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .st-time {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
 }
 
 .st-format {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
   background: rgba(83, 216, 251, 0.15);
   color: #53d8fb;
 }
 
 .st-seat {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
   background: rgba(168, 85, 247, 0.12);
   color: #c084fc;
 }
@@ -223,7 +223,7 @@
 /* ========= Prices Row ========= */
 .st-prices {
   display: flex;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .st-price {
@@ -231,9 +231,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding: 6px 4px;
-  border-radius: 8px;
+  gap: 0.1875rem;
+  padding: 0.375rem 0.25rem;
+  border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid transparent;
   transition: all 0.2s;
@@ -249,13 +249,13 @@
 }
 
 .st-price-platform {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.2px;
 }
 
 .st-price-value {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -265,6 +265,6 @@
 }
 
 .st-price--na .st-price-value {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--text-muted);
 }

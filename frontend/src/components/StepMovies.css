@@ -5,16 +5,16 @@
 .movie-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .movie-card {
   display: flex;
-  gap: 14px;
-  padding: 12px;
+  gap: 0.875rem;
+  padding: 0.75rem;
   background: var(--surface);
   border: 1.5px solid var(--border);
-  border-radius: 14px;
+  border-radius: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -28,7 +28,7 @@
   border-color: var(--accent);
   background: var(--surface-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(233, 69, 96, 0.15);
+  box-shadow: 0 0.25rem 1rem rgba(233, 69, 96, 0.15);
 }
 
 .movie-card:active {
@@ -36,9 +36,9 @@
 }
 
 .movie-poster {
-  width: 64px;
-  height: 90px;
-  border-radius: 8px;
+  width: 4rem;
+  height: 5.625rem;
+  border-radius: 0.5rem;
   object-fit: cover;
   flex-shrink: 0;
   background: var(--skeleton-base);
@@ -47,13 +47,13 @@
 .movie-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
   justify-content: center;
   min-width: 0;
 }
 
 .movie-title {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
@@ -61,42 +61,42 @@
 }
 
 .movie-genre {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
 .movie-meta {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 0.25rem;
 }
 
 .movie-duration {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
 .movie-rating {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
   background: var(--accent);
   color: #fff;
 }
 
 .empty-state {
   text-align: center;
-  padding: 40px 20px;
+  padding: 2.5rem 1.25rem;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(0.75rem);
   }
   to {
     opacity: 1;
