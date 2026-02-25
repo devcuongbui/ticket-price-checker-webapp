@@ -1,6 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from pydantic import BaseModel
 from data import MOVIES, CINEMAS, SHOWTIMES, generate_seats
+from auth import (
+    get_password_hash, verify_password, create_access_token,
+    create_refresh_token, decode_token
+)
+import uuid
 
 app = FastAPI(title="Ticket Price Checker API", version="1.0.0")
 
@@ -13,6 +20,87 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+security = HTTPBearer()
+
+# Mock Users Database
+USERS = {
+    "admin@admin.com": {
+        "id": "u-admin",
+        "email": "admin@admin.com",
+        "password": get_password_hash("admin123"),
+        "role": "admin"
+    }
+}
+
+class UserRegister(BaseModel):
+    email: str
+    password: str
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+class TokenRefresh(BaseModel):
+    refresh_token: str
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    payload = decode_token(token)
+    if payload.get("type") != "access":
+        raise HTTPException(status_code=401, detail="Invalid token type")
+    user_email = payload.get("sub")
+    if user_email not in USERS:
+        raise HTTPException(status_code=401, detail="User not found")
+    return USERS[user_email]
+
+def get_admin_user(current_user: dict = Depends(get_current_user)):
+    if current_user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Not enough privileges")
+    return current_user
+
+@app.post("/api/auth/register")
+def register(user: UserRegister):
+    if user.email in USERS:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    user_id = "u-" + str(uuid.uuid4())[:8]
+    USERS[user.email] = {
+        "id": user_id,
+        "email": user.email,
+        "password": get_password_hash(user.password),
+        "role": "user"
+    }
+    return {"message": "User registered successfully"}
+
+@app.post("/api/auth/login")
+def login(user: UserLogin):
+    db_user = USERS.get(user.email)
+    if not db_user or not verify_password(user.password, db_user["password"]):
+        raise HTTPException(status_code=401, detail="Incorrect email or password")
+    
+    access_token = create_access_token(data={"sub": db_user["email"], "role": db_user["role"]})
+    refresh_token = create_refresh_token(data={"sub": db_user["email"]})
+    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
+
+@app.post("/api/auth/refresh")
+def refresh(token_data: TokenRefresh):
+    payload = decode_token(token_data.refresh_token)
+    if payload.get("type") != "refresh":
+        raise HTTPException(status_code=401, detail="Invalid token type")
+    user_email = payload.get("sub")
+    if user_email not in USERS:
+        raise HTTPException(status_code=401, detail="User not found")
+    
+    db_user = USERS[user_email]
+    access_token = create_access_token(data={"sub": db_user["email"], "role": db_user["role"]})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.get("/api/auth/me")
+def read_users_me(current_user: dict = Depends(get_current_user)):
+    return {"id": current_user["id"], "email": current_user["email"], "role": current_user["role"]}
+
+@app.get("/api/admin/users")
+def read_all_users(admin_user: dict = Depends(get_admin_user)):
+    return [{"id": u["id"], "email": u["email"], "role": u["role"]} for u in USERS.values()]
 
 @app.get("/")
 def root():
