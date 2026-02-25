@@ -1,7 +1,22 @@
 import os
+from urllib.parse import quote_plus
 from dotenv import load_dotenv
 
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-DB_NAME = os.getenv("DB_NAME", "ticket_price_checker")
+# ── MongoDB Atlas ─────────────────────────────────────────────────────────────
+_USER = os.getenv("MONGO_USER", "devcuongbui")
+_PASS = os.getenv("MONGO_PASS", "7ygUW5tfLvFw3cEF")
+_HOST = os.getenv("MONGO_HOST", "cluster0.gbovon9.mongodb.net")
+
+# Full URI can also be set directly via MONGO_URI env var
+MONGO_URI = os.getenv(
+    "MONGO_URI",
+    f"mongodb+srv://{quote_plus(_USER)}:{quote_plus(_PASS)}@{_HOST}/?appName=Cluster0&retryWrites=true&w=majority"
+)
+DB_NAME = os.getenv("DB_NAME", "movie_tickets")
+
+# ── Project settings ──────────────────────────────────────────────────────────
+TARGET_CITY = "Hải Phòng"
+DEBUG = os.getenv("DEBUG", "0") == "1"
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
