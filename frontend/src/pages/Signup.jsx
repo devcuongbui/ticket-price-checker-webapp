@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { registerApi } from "../api/client";
+import { registerApi, loginApi, setTokens, getMe } from "../api/client";
+import { useAuth } from "../AuthContext";
 import "./Auth.css";
 
 export default function Signup() {
@@ -10,6 +11,7 @@ export default function Signup() {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,8 +20,16 @@ export default function Signup() {
 
         try {
             await registerApi(email, password);
-            // Automatically redirect to login on success
-            navigate("/login");
+
+            // Auto login after successful signup
+            const { access_token, refresh_token } = await loginApi(email, password);
+            setTokens(access_token, refresh_token);
+
+            const user = await getMe();
+            login(user);
+
+            // Redirect to home page
+            navigate("/");
         } catch (err) {
             setError(err.message || "Đăng ký thất bại");
         } finally {

@@ -34,6 +34,9 @@ export function AuthProvider({ children }) {
     };
 
     const logout = () => {
+        if (user && user.email) {
+            localStorage.setItem("lastEmail", user.email);
+        }
         clearTokens();
         setUser(null);
     };

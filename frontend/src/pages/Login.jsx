@@ -5,7 +5,7 @@ import { useAuth } from "../AuthContext";
 import "./Auth.css";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(() => localStorage.getItem("lastEmail") || "");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
