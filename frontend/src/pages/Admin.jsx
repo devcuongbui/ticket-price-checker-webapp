@@ -9,7 +9,7 @@ export default function Admin() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
-    const [activeTab, setActiveTab] = useState("users"); // 'users' or 'stats'
+    const [activeTab, setActiveTab] = useState("stats"); // 'users' or 'stats'
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
     const [formData, setFormData] = useState({ email: "", password: "", role: "user" });
@@ -109,24 +109,24 @@ export default function Admin() {
 
             <div className="admin-tabs">
                 <button
-                    className={`admin-tab ${activeTab === 'users' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('users')}
-                >
-                    Quản Lý Người Dùng
-                </button>
-                <button
                     className={`admin-tab ${activeTab === 'stats' ? 'active' : ''}`}
                     onClick={() => setActiveTab('stats')}
                 >
                     Thống Kê Dữ Liệu
                 </button>
+                <button
+                    className={`admin-tab ${activeTab === 'users' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('users')}
+                >
+                    Quản Lý Người Dùng
+                </button>
             </div>
 
             {activeTab === 'users' ? (
                 <div className="admin-card">
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                        <h3>Danh sách người dùng</h3>
-                        <button className="auth-btn" style={{ margin: 0, padding: "8px 16px" }} onClick={openCreateModal}>+ Thêm tải khoản</button>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "10px" }}>
+                        <h3 style={{ margin: 0 }}>Danh sách người dùng</h3>
+                        <button className="auth-btn" style={{ margin: 0, padding: "8px 16px", whiteSpace: "nowrap" }} onClick={openCreateModal}>+ Thêm tài khoản</button>
                     </div>
                     <div className="table-responsive">
                         <table className="admin-table">
