@@ -160,11 +160,14 @@
 }
 
 .table-responsive {
+  width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .admin-table {
   width: 100%;
+  min-width: 600px; /* Forces scrolling on small screens */
   border-collapse: collapse;
 }
 
