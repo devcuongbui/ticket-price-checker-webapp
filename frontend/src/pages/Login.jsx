@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginApi, setTokens, getMe } from "../api/client";
 import { useAuth } from "../AuthContext";
@@ -11,7 +11,17 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, user } = useAuth();
+
+    useEffect(() => {
+        if (user) {
+            if (user.role === "admin") {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
+        }
+    }, [user, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
