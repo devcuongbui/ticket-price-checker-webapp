@@ -1,4 +1,4 @@
-# 🎬 Check Giá Vé Phim — Hải Phòng
+# 🎬 Check Giá Vé Phim
 
 > Webapp mobile-first giúp người dùng **so sánh giá vé xem phim** giữa 3 sàn **MoMo**, **ZaloPay**, **VNPay** và kiểm tra ghế trống trước khi đặt vé.
 
