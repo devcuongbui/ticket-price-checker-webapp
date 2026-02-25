@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { adminGetUsers, adminUpdateUserRole, adminCreateUser, adminUpdateUser, adminDeleteUser } from "../api/client";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import StatsDashboard from "../components/StatsDashboard";
 
 export default function Admin() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
+    const [activeTab, setActiveTab] = useState("users"); // 'users' or 'stats'
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
     const [formData, setFormData] = useState({ email: "", password: "", role: "user" });
@@ -105,67 +107,85 @@ export default function Admin() {
 
             {error && <div className="admin-error">{error}</div>}
 
-            <div className="admin-card">
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                    <h3>Danh sách người dùng</h3>
-                    <button className="auth-btn" style={{ margin: 0, padding: "8px 16px" }} onClick={openCreateModal}>+ Thêm tải khoản</button>
-                </div>
-                <div className="table-responsive">
-                    <table className="admin-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>Vai trò</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map(u => (
-                                <tr key={u.id}>
-                                    <td>{u.id}</td>
-                                    <td>{u.email}</td>
-                                    <td>
-                                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                            <span className={`role-badge role-${u.role}`}>{u.role}</span>
-                                            {u.id !== user.id && ( // Prevent changing own role
-                                                <select
-                                                    value={u.role}
-                                                    onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                                                    style={{
-                                                        background: "rgba(255,255,255,0.05)",
-                                                        border: "1px solid var(--border)",
-                                                        color: "var(--text-primary)",
-                                                        padding: "4px",
-                                                        borderRadius: "4px",
-                                                        fontSize: "12px",
-                                                        outline: "none"
-                                                    }}
-                                                >
-                                                    <option value="user">User</option>
-                                                    <option value="admin">Admin</option>
-                                                </select>
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {u.id !== user.id && (
-                                            <div style={{ display: "flex", gap: "8px" }}>
-                                                <button onClick={() => openEditModal(u)} className="admin-action-btn edit">Sửa</button>
-                                                <button onClick={() => handleDelete(u.id)} className="admin-action-btn delete">Xóa</button>
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                            {users.length === 0 && (
-                                <tr>
-                                    <td colSpan="3" style={{ textAlign: "center" }}>Không có người dùng nào.</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+            <div className="admin-tabs">
+                <button
+                    className={`admin-tab ${activeTab === 'users' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('users')}
+                >
+                    Quản Lý Người Dùng
+                </button>
+                <button
+                    className={`admin-tab ${activeTab === 'stats' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('stats')}
+                >
+                    Thống Kê Dữ Liệu
+                </button>
             </div>
+
+            {activeTab === 'users' ? (
+                <div className="admin-card">
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                        <h3>Danh sách người dùng</h3>
+                        <button className="auth-btn" style={{ margin: 0, padding: "8px 16px" }} onClick={openCreateModal}>+ Thêm tải khoản</button>
+                    </div>
+                    <div className="table-responsive">
+                        <table className="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Vai trò</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map(u => (
+                                    <tr key={u.id}>
+                                        <td>{u.id}</td>
+                                        <td>{u.email}</td>
+                                        <td>
+                                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                                <span className={`role-badge role-${u.role}`}>{u.role}</span>
+                                                {u.id !== user.id && ( // Prevent changing own role
+                                                    <select
+                                                        value={u.role}
+                                                        onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                                                        style={{
+                                                            border: "1px solid var(--border)",
+                                                            color: "var(--text-primary)",
+                                                            padding: "4px",
+                                                            borderRadius: "4px",
+                                                            fontSize: "12px",
+                                                            outline: "none"
+                                                        }}
+                                                    >
+                                                        <option value="user">User</option>
+                                                        <option value="admin">Admin</option>
+                                                    </select>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {u.id !== user.id && (
+                                                <div style={{ display: "flex", gap: "8px" }}>
+                                                    <button onClick={() => openEditModal(u)} className="admin-action-btn edit">Sửa</button>
+                                                    <button onClick={() => handleDelete(u.id)} className="admin-action-btn delete">Xóa</button>
+                                                </div>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                                {users.length === 0 && (
+                                    <tr>
+                                        <td colSpan="3" style={{ textAlign: "center" }}>Không có người dùng nào.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            ) : (
+                <StatsDashboard />
+            )}
 
             {isModalOpen && (
                 <div className="admin-modal-overlay" onClick={() => setIsModalOpen(false)}>
