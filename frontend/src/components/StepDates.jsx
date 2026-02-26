@@ -34,7 +34,7 @@ export default function StepDates({ movieId, onSelect }) {
                                 className={`date-chip ${isToday ? "date-today" : ""}`}
                                 onClick={() => onSelect(dateStr)}
                             >
-                                <span className="date-dow">{isToday ? "Hôm nay" : dayOfWeek}</span>
+                                <span className="date-dow">{isToday ? "Today" : dayOfWeek}</span>
                                 <span className="date-display">{display}</span>
                             </button>
                         );
