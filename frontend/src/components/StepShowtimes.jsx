@@ -92,49 +92,35 @@ export default function StepShowtimes({ movieId, date, onSelect }) {
             <div className="st-filters">
                 {/* Cinema filter */}
                 <div className="filter-row">
-                    <div className="filter-scroll">
-                        <button
-                            className={`filter-chip ${cinemaFilter === "all" ? "active" : ""}`}
-                            onClick={() => setCinemaFilter("all")}
-                        >
-                            Tất cả rạp
-                        </button>
+                    <select
+                        className="filter-select"
+                        value={cinemaFilter}
+                        onChange={(e) => setCinemaFilter(e.target.value)}
+                    >
+                        <option value="all">Tất cả rạp</option>
                         {cinemas.map((c) => (
-                            <button
-                                key={c.id}
-                                className={`filter-chip ${cinemaFilter === c.id ? "active" : ""}`}
-                                onClick={() => setCinemaFilter(c.id)}
-                            >
-                                <span
-                                    className="filter-dot"
-                                    style={{ background: CHAIN_COLORS[c.chain] || "#666" }}
-                                />
-                                {c.chain}
-                            </button>
+                            <option key={c.id} value={c.id}>
+                                {c.name}
+                            </option>
                         ))}
-                    </div>
+                    </select>
                 </div>
 
                 {/* Seat type filter */}
                 {seatTypes.length > 1 && (
                     <div className="filter-row">
-                        <div className="filter-scroll">
-                            <button
-                                className={`filter-chip filter-chip--sm ${seatFilter === "all" ? "active" : ""}`}
-                                onClick={() => setSeatFilter("all")}
-                            >
-                                Tất cả ghế
-                            </button>
+                        <select
+                            className="filter-select"
+                            value={seatFilter}
+                            onChange={(e) => setSeatFilter(e.target.value)}
+                        >
+                            <option value="all">Tất cả ghế</option>
                             {seatTypes.map((st) => (
-                                <button
-                                    key={st}
-                                    className={`filter-chip filter-chip--sm ${seatFilter === st ? "active" : ""}`}
-                                    onClick={() => setSeatFilter(st)}
-                                >
+                                <option key={st} value={st}>
                                     {st === "VIP" ? "💎 VIP" : "🪑 " + st}
-                                </button>
+                                </option>
                             ))}
-                        </div>
+                        </select>
                     </div>
                 )}
             </div>
