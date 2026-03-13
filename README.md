@@ -1,5 +1,7 @@
 # 🎬 Săn vé rẻ
 
+link demo: https://ticket-price-checker-webapp.vercel.app/
+
 > Webapp mobile-first giúp người dùng **so sánh giá vé xem phim** giữa 3 sàn **MoMo**, **ZaloPay**, **VNPay** và kiểm tra ghế trống trước khi đặt vé.
 
 ![Tech Stack](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black&style=flat-square)
